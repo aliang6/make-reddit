@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <h2>{{room.topic}}</h2>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-8">
+    {{#each posts as |post|}}
+      <div class="card mb-3">
+        <div class="card-body post-div">
+            <h3 class="card-title text-center">{{post.subject}} by {{post.author.username}}</h3>
+            <p>{{post.body}}</p>
+        </div>
+
+        <div class="card-footer text-muted text-left">
+          <a class="nav-link" href="/rooms/{{../room._id}}/posts/{{post.id}}/edit">Edit</a>
+          <form action="/rooms/{{../room._id}}/posts/{{post.id}}/delete" method="post">
+            <div>
+              <button type="submit" class="btn btn-primary">Delete</button>
+            </div>
+          </form>
+          <div class="text-right">
+            <span class="points-span">{{post.points}} points</span>
+
+            <div class="btn-group btn-group-sm">
+              <form action="/rooms/{{post.room}}/posts/{{post.id}}" method="post" class="inline-form">
+                <input type="hidden" name="points" id="post-points" value="1">
+                  <button type="submit" class="upvote-button">+</button>
+              </form>
+              <form action="/rooms/{{post.room}}/posts/{{post.id}}" method="post" class="inline-form">
+                <input type="hidden" name="points" id="post-points" value="-1">
+                  <button type="submit" class="downvote-button">-</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul>
+          {{#each post.comments as |comment|}}
+            <li>{{comment.author}}: {{comment.body}}</li>
+            {{!-- {{#isEqual comment.author currUser}} --}}
+                <a class="navlink" href="/rooms/{{../room._id}}/posts/{{post.id}}/comments/{{comment.id}}/edit">Edit</a> | 
+                <form action="/rooms/{{../room._id}}/posts/{{post.id}}/comments/{{comment.id}}/delete" method="post">
+                  <div>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                  </div>
+                </form>
+            {{!-- {{/isEqual}} --}}
+          {{/each}}
+          <li><a href="/rooms/{{../room._id}}/posts/{{post.id}}/comments/new">New comment</a></li>
+      </ul>
+    {{/each}}
+  </div>
+</div>
+
+<div>
+    <a href="/rooms/{{room.id}}/posts/new">New Post</a>
+</div>

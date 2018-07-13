@@ -1,0 +1,25 @@
+<div>
+    Rooms Index
+</div>
+
+<div>
+  <form action="/rooms/search" method="get">
+      <div class="form-group">
+          <label for="post-body">Search for a Room</label>
+          <input type="text" name="search" class="form-control" id="search-box" placeholder="Room Name" value="">
+      </div>
+      <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+  </form>
+</div>
+
+<div>
+    <ul>
+        {{#each rooms as |room|}}
+            <li>
+                <a href="/rooms/{{room.id}}">{{room.topic}}</a> | <a href="/rooms/{{room.id}}/edit">Edit</a>
+            </li>
+        {{/each}}
+    </ul>
+</div>
